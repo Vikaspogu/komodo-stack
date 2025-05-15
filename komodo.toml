@@ -1,0 +1,74 @@
+[[server]]
+name = "swarm"
+[server.config]
+address = "https://periphery:8120"
+enabled = true
+
+##
+
+[[stack]]
+name = "alerter"
+deploy = true
+[stack.config]
+server = "swarm"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "alerter"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "uptimekuma"
+deploy = true
+[stack.config]
+server = "swarm"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "uptimekuma"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "traefik"
+deploy = true
+[stack.config]
+server = "swarm"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "traefik"
+send_alerts = true
+auto_update = true
+
+##
+
+[[builder]]
+name = "local"
+[builder.config]
+type = "Server"
+params.server_id = "swarm"
+
+##
+
+[[resource_sync]]
+name = "komodo-stack"
+[resource_sync.config]
+git_provider = "github.com"
+repo = "vikaspogu/komodo-stack"
+git_account = "vikaspogu"
+resource_path = ["komodo.toml"]
+managed = true
+delete = true
+
+[[alerter]]
+name = "gotify"
+[alerter.config]
+enabled = true
+endpoint.type = "Custom"
+endpoint.params.url = "http://komodo-gotify:7000"

@@ -1,0 +1,19 @@
+networks:
+  komodo_default:
+    external: true
+services:
+  komodo-gotify:
+    image: foxxmd/komodo-gotify-alerter:latest
+    container_name: komodo-gotify-alerter
+    environment:
+      - GOTIFY_OK_PRIORITY=3
+      - GOTIFY_WARNING_PRIORITY=5
+      - GOTIFY_CRITICAL_PRIORITY=8
+      - UNRESOLVED_TIMEOUT_TYPES=ServerCpu,ServerMem,ContainerStateChange
+      - UNRESOLVED_TIMEOUT=20000
+      - GOTIFY_URL=${GOTIFY_URL}
+      - GOTIFY_APP_TOKEN=${GOTIFY_APP_TOKEN}
+    ports:
+      - "7000:7000"
+    networks:
+      - komodo_default
