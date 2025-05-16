@@ -7,7 +7,7 @@ services:
     image: "traefik:v3.4"
     container_name: "traefik"
     networks:
-      - traefik
+      - traefik_traefik
     command:
       - "--log.level=DEBUG"
       - "--api.insecure=true"
@@ -41,7 +41,7 @@ services:
           - node.role == manager
       labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
+      - "traefik.docker.network=traefik_traefik"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
       - traefik.http.routers.traefik-http.rule=Host(`${DOMAIN?Variable not set}`)
