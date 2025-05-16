@@ -12,6 +12,7 @@ services:
         - traefik.http.routers.uptimekuma-https.rule=Host(`uptime.synlo.duckdns.org`)
         - traefik.http.routers.uptimekuma-https.entrypoints=websecure
         - traefik.http.routers.uptimekuma-https.tls=true
+        - traefik.http.routers.uptimekuma-https.tls.certresolver=le
         - traefik.http.services.uptimekuma.loadbalancer.server.port=3001
     ports:
       - 3001:3001
