@@ -1,7 +1,6 @@
 networks:
   traefik:
     driver: overlay
-    attachable: true
 services:
   traefik:
     image: "traefik:v3.4"
@@ -41,23 +40,14 @@ services:
           - node.role == manager
       labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
-      - traefik.http.routers.traefik-http.rule=Host(`dashboard.${DOMAIN}`)
-      - traefik.http.routers.traefik-http.entrypoints=http
-      - traefik.http.routers.traefik-http.middlewares=https-redirect
-      - "traefik.http.routers.traefik-https.rule=Host(`dashboard.${DOMAIN}`)"
-      - traefik.http.routers.traefik-https.entrypoints=https
-      - traefik.http.routers.traefik-https.tls=true
-      - traefik.http.routers.traefik-https.service=api@internal
-      - traefik.http.services.traefik.loadbalancer.server.port=8080
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      # - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-      # - "traefik.http.routers.traefik-secure.entrypoints=websecure"
-      # - "traefik.http.routers.traefik-secure.tls=true"
-      # - "traefik.http.routers.traefik-secure.service=api@internal"
-      # - traefik.http.services.traefik.loadbalancer.server.port=8080
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=websecure"
+      - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.${DOMAIN}`)"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
     volumes:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
