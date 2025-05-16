@@ -17,8 +17,8 @@ services:
       - "--providers.swarm.exposedByDefault=false"
       - "--entryPoints.web.address=:80"
       - "--entryPoints.websecure.address=:443"
-      # - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      # - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       # SSL/TLS Properties
       - "--entrypoints.websecure.http.tls.certResolver=myresolver"
       - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
