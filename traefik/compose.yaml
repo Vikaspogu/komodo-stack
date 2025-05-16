@@ -10,8 +10,8 @@ services:
     command:
       - "--log.level=DEBUG"
       - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
+      - "--providers.swarm.endpoint=tcp://127.0.0.1:2377"
+      - "--providers.swarm.exposedByDefault=false"
       - "--entryPoints.web.address=:80"
       - "--entryPoints.websecure.address=:443"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
@@ -33,7 +33,8 @@ services:
       - "8080:8080"
     environment:
       - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
-    labels:
+    deploy:
+      labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
@@ -42,6 +43,7 @@ services:
       - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.${DOMAIN}`)"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.service=api@internal"
+      - traefik.http.services.traefik-service.loadbalancer.server.port=8080
     volumes:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"

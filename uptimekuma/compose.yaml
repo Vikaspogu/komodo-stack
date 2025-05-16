@@ -5,11 +5,13 @@ services:
   uptimekuma:
     image: docker.io/louislam/uptime-kuma:1.23.16
     container_name: uptimekuma
-    labels:
+    deploy:
+      labels:
       - "traefik.enable=true"
       - "traefik.http.routers.uptimekuma.tls=true"
       - "traefik.http.routers.uptimekuma.rule=Host(`uptime.synlo.duckdns.org`)"
       - "traefik.http.routers.uptimekuma.entrypoints=websecure"
+      - "traefik.http.services.uptimekuma-service.loadbalancer.server.port=3001"
     ports:
       - 3001:3001
     volumes:

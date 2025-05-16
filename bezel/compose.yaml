@@ -3,11 +3,13 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     restart: unless-stopped
-    labels:
+    deploy:
+      labels:
       - "traefik.enable=true"
       - "traefik.http.routers.filebrowser.tls=true"
       - "traefik.http.routers.filebrowser.rule=Host(`beszel.synlo.duckdns.org`)"
       - "traefik.http.routers.filebrowser.entrypoints=websecure"
+      - "traefik.http.services.beszel-service.loadbalancer.server.port=8090"
     ports:
       - 8090:8090
     volumes:
