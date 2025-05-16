@@ -7,6 +7,26 @@ enabled = true
 ##
 
 [[stack]]
+name = "traefik"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "traefik"
+send_alerts = true
+auto_update = true
+environment = """
+DOMAIN = [[DOMAIN]] # interpolate variables into the envs.
+ACME_EMAIL = [[ACME_EMAIL]]
+ACME_PROVIDER = [[ACME_PROVIDER]]
+DUCKDNS_TOKEN= [[DUCKDNS_TOKEN]]
+"""
+
+##
+
+[[stack]]
 name = "alerter"
 deploy = true
 [stack.config]
@@ -21,6 +41,48 @@ environment = """
 GOTIFY_URL = [[GOTIFY_URL]] # interpolate variables into the envs.
 GOTIFY_APP_TOKEN = [[GOTIFY_APP_TOKEN]]
 """
+
+##
+
+[[stack]]
+name = "bezel"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "bezel"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "dozzle"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "dozzle"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "volume-backup"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "volume-backup"
+send_alerts = true
+auto_update = true
 
 ##
 
@@ -53,26 +115,6 @@ repo = "vikaspogu/komodo-stack"
 run_directory = "uptimekuma"
 send_alerts = true
 auto_update = true
-
-##
-
-[[stack]]
-name = "traefik"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "traefik"
-send_alerts = true
-auto_update = true
-environment = """
-DOMAIN = [[DOMAIN]] # interpolate variables into the envs.
-ACME_EMAIL = [[ACME_EMAIL]]
-ACME_PROVIDER = [[ACME_PROVIDER]]
-DUCKDNS_TOKEN= [[DUCKDNS_TOKEN]]
-"""
 
 ##
 
