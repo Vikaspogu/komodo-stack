@@ -1,6 +1,6 @@
 services:
   filebrowser:
-    image: ghcr.io/gtsteffaniak/filebrowser:0.7.2-beta
+    image: ghcr.io/gtsteffaniak/filebrowser:0.7.3-beta
     container_name: filebrowser
     labels:
       - "traefik.enable=true"
@@ -16,7 +16,7 @@ services:
       - PUID=$(id -u)
       - PGID=$(id -g)
     ports:
-      - 8095:80 #Change the port if needed
+      - 8095:8095 #Change the port if needed
     networks:
       - traefik_traefik
 volumes:
