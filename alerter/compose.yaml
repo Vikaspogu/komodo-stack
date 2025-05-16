@@ -11,8 +11,8 @@ services:
       - GOTIFY_CRITICAL_PRIORITY=8
       - UNRESOLVED_TIMEOUT_TYPES=ServerCpu,ServerMem,ContainerStateChange
       - UNRESOLVED_TIMEOUT=20000
-      - GOTIFY_URL=[[GOTIFY_URL]]
-      - GOTIFY_APP_TOKEN=[[GOTIFY_APP_TOKEN]]
+      - GOTIFY_URL=${GOTIFY_URL}
+      - GOTIFY_APP_TOKEN=${GOTIFY_APP_TOKEN}
     ports:
       - "7000:7000"
     # networks:

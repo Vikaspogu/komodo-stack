@@ -18,24 +18,24 @@ services:
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       # SSL/TLS Properties
       - "--entrypoints.websecure.http.tls.certResolver=myresolver"
-      - "--entrypoints.websecure.http.tls.domains[0].main=[[DOMAIN]]"
-      - "--entrypoints.websecure.http.tls.domains[0].sans=*.[[DOMAIN]]"
-      - "--certificatesresolvers.myresolver.acme.email=[[ACME_EMAIL]]"
+      - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
+      - "--entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=[[ACME_PROVIDER]]"
+      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=${ACME_PROVIDER}"
     ports:
       - "80:80"
       - "443:443"
       - "8080:8080"
     environment:
-      - DUCKDNS_TOKEN=[[DUCKDNS_TOKEN]]
+      - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
       - "traefik.http.routers.traefik-secure.entrypoints=websecure"
-      - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.[[DOMAIN]]`)"
+      - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.${DOMAIN}`)"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.service=api@internal"
     volumes:
