@@ -39,7 +39,7 @@ services:
       - --certificatesresolvers.le.acme.dnschallenge=true
       - --certificatesresolvers.le.acme.dnschallenge.provider=${ACME_PROVIDER}
       - --accesslog
-      - --log
+      - --log.level=DEBUG
       - --api
     networks:
       - traefik
