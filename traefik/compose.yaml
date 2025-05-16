@@ -1,6 +1,6 @@
 networks:
   traefik:
-    external: false
+    driver: overlay
 services:
   traefik:
     image: "traefik:v3.4"
@@ -15,8 +15,8 @@ services:
       - "--providers.swarm.exposedByDefault=false"
       - "--entryPoints.web.address=:80"
       - "--entryPoints.websecure.address=:443"
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      # - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      # - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       # SSL/TLS Properties
       - "--entrypoints.websecure.http.tls.certResolver=myresolver"
       - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
@@ -40,6 +40,7 @@ services:
           - node.role == manager
       labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
