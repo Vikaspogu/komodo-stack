@@ -1,7 +1,14 @@
 services:
   bytestash:
-    image: "ghcr.io/jordan-dalby/bytestash:latest"
+    image: "ghcr.io/jordan-dalby/bytestash:1.5.7"
     restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bytestash.tls=true"
+      - "traefik.http.routers.bytestash.rule=Host(`bytestash.synlo.duckdns.org`)"
+      - "traefik.http.routers.bytestash.entrypoints=websecure"
+    networks:
+      - traefik_traefik
     volumes:
       - bytestash_data:/data/snippets
     ports:
@@ -23,3 +30,7 @@ services:
       OIDC_SCOPES: "openid profile email"
 volumes:
   bytestash_data:
+
+networks:
+  traefik_traefik:
+    external: true
