@@ -35,6 +35,9 @@ services:
     environment:
       - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
     deploy:
+      placement:
+        constraints:
+          - node.role == manager
       labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
