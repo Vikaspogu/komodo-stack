@@ -32,8 +32,6 @@ services:
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
       - --entrypoints.http.address=:80
       - --entrypoints.https.address=:443
-      - --entrypoints.web.http.redirections.entryPoint.to=websecure
-      - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.websecure.http.tls.certResolver=le
       - --entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}
       - --entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}
