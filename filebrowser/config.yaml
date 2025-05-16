@@ -6,7 +6,5 @@ auth:
       enabled: true
       clientId: "${FILEBROWSER_OIDC_CLIENTID}"
       clientSecret: "${FILEBROWSER_OIDC_CLIENTSECRET}"
-      authorizationUrl: https://auth.vikaspogu.com/authorize
-      tokenUrl: https://auth.vikaspogu.com/api/oidc/token
-      userInfoUrl: https://auth.vikaspogu.com/api/oidc/userinfo
+      issuerUrl: https://auth.vikaspogu.com/authorize
       scopes: "email openid profile"
