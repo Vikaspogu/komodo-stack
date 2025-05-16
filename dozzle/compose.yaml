@@ -9,7 +9,7 @@ services:
       - "traefik.http.routers.dozzle.tls=true"
       - "traefik.http.routers.dozzle.rule=Host(`dozzle.synlo.duckdns.org`)"
       - "traefik.http.routers.dozzle.entrypoints=websecure"
-      - "traefik.http.services.uptimekuma-service.loadbalancer.server.port=8080"
+      - "traefik.http.services.uptimekuma.loadbalancer.server.port=8070"
     environment:
       - DOZZLE_MODE=swarm
     volumes:

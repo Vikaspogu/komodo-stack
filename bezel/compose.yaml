@@ -9,7 +9,7 @@ services:
       - "traefik.http.routers.filebrowser.tls=true"
       - "traefik.http.routers.filebrowser.rule=Host(`beszel.synlo.duckdns.org`)"
       - "traefik.http.routers.filebrowser.entrypoints=websecure"
-      - "traefik.http.services.beszel-service.loadbalancer.server.port=8090"
+      - "traefik.http.services.beszel.loadbalancer.server.port=8090"
     ports:
       - 8090:8090
     volumes:

@@ -43,7 +43,7 @@ services:
       - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.${DOMAIN}`)"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.service=api@internal"
-      - traefik.http.services.traefik-service.loadbalancer.server.port=8080
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
     volumes:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
