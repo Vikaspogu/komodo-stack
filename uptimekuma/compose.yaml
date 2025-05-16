@@ -8,8 +8,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.docker.network=traefik-public
-        - traefik.constraint-label=traefik-public
+        - traefik.docker.network=traefik
         - traefik.http.routers.uptimekuma-http.rule=Host(`synlo.duckdns.org`)
         - traefik.http.routers.uptimekuma-http.entrypoints=http
         - traefik.http.routers.uptimekuma-http.middlewares=https-redirect
