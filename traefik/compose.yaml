@@ -1,6 +1,7 @@
 networks:
   traefik:
     driver: overlay
+    attachable: true
 services:
   traefik:
     image: "traefik:v3.4"
