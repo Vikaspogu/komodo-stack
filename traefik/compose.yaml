@@ -4,6 +4,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - "8080:8080"
     environment:
       - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
     deploy:
@@ -13,39 +14,37 @@ services:
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik
-        - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
-        - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
-        - traefik.http.routers.traefik-http.rule=Host(`${DOMAIN}`)
-        - traefik.http.routers.traefik-http.entrypoints=http
-        - traefik.http.routers.traefik-http.middlewares=https-redirect
-        - traefik.http.routers.traefik-https.rule=Host(`${DOMAIN}`)
-        - traefik.http.routers.traefik-https.entrypoints=https
-        - traefik.http.routers.traefik-https.tls=true
-        - traefik.http.routers.traefik-https.tls.certresolver=le
-        - traefik.http.routers.traefik-https.service=api@internal
+        - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+        - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+        - "traefik.http.routers.traefik-secure.entrypoints=websecure"
+        - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.${DOMAIN}`)"
+        - "traefik.http.routers.traefik-secure.tls=true"
+        - "traefik.http.routers.traefik-secure.service=api@internal"
         - traefik.http.services.traefik.loadbalancer.server.port=8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - traefik-certificates:/certificates
+      - "./letsencrypt:/letsencrypt"
     command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
       - --providers.docker
       - --providers.docker.exposedbydefault=false
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
-      - --entrypoints.http.address=:80
-      - --entrypoints.https.address=:443
-      - --certificatesresolvers.le.acme.email=${ACME_EMAIL}
-      - --certificatesresolvers.le.acme.storage=/certificates/acme.json
-      - --certificatesresolvers.le.acme.tlschallenge=true
-      - --accesslog
-      - --log.level=DEBUG
-      - --api
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      # SSL/TLS Properties
+      - "--entrypoints.websecure.http.tls.certResolver=le"
+      - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
+      - "--entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}"
+      - "--certificatesresolvers.le.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.le.acme.dnschallenge.provider=${ACME_PROVIDER}"
     networks:
       - traefik
-
-volumes:
-  traefik-certificates:
 
 networks:
   traefik:
     external: true
-    attachable: true
