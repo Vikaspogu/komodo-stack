@@ -15,12 +15,13 @@ services:
         - traefik.docker.network=traefik
         - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
         - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
-        - traefik.http.routers.traefik-http.rule=Host(`dashboard.${DOMAIN}`)
+        - traefik.http.routers.traefik-http.rule=Host(`${DOMAIN}`)
         - traefik.http.routers.traefik-http.entrypoints=http
         - traefik.http.routers.traefik-http.middlewares=https-redirect
-        - traefik.http.routers.traefik-https.rule=Host(`dashboard.${DOMAIN}`)
-        - traefik.http.routers.traefik-https.entrypoints=websecure
+        - traefik.http.routers.traefik-https.rule=Host(`${DOMAIN}`)
+        - traefik.http.routers.traefik-https.entrypoints=https
         - traefik.http.routers.traefik-https.tls=true
+        - traefik.http.routers.traefik-https.tls.certresolver=le
         - traefik.http.routers.traefik-https.service=api@internal
         - traefik.http.services.traefik.loadbalancer.server.port=8080
     volumes:
@@ -32,16 +33,9 @@ services:
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
       - --entrypoints.http.address=:80
       - --entrypoints.https.address=:443
-      - --entrypoints.websecure.http.tls.certResolver=le
-      - --entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}
-      - --entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}
       - --certificatesresolvers.le.acme.email=${ACME_EMAIL}
       - --certificatesresolvers.le.acme.storage=/certificates/acme.json
-      - --certificatesresolvers.le.acme.dnschallenge=true
-      - --certificatesresolvers.le.acme.dnschallenge.provider=${ACME_PROVIDER}
-      - --certificatesresolvers.le.acme.dnschallenge.disablePropagationCheck=true
-      - --certificatesresolvers.le.acme.dnschallenge.delayBeforeCheck=60
-      - --certificatesresolvers.le.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
+      - --certificatesresolvers.le.acme.tlschallenge=true
       - --accesslog
       - --log.level=DEBUG
       - --api
