@@ -9,16 +9,19 @@ services:
       - "traefik.http.routers.dozzle.tls=true"
       - "traefik.http.routers.dozzle.rule=Host(`dozzle.synlo.duckdns.org`)"
       - "traefik.http.routers.dozzle.entrypoints=websecure"
-      - "traefik.http.services.uptimekuma.loadbalancer.server.port=8070"
+      - "traefik.http.services.uptimekuma-service.loadbalancer.server.port=8080"
     environment:
       - DOZZLE_MODE=swarm
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 8070:8070
+      - 8080:8080
     networks:
-      - traefik_traefik
+      - dozzle
+      # - traefik_traefik
 
 networks:
-  traefik_traefik:
-    external: true
+  dozzle:
+    driver: overlay
+  # traefik_traefik:
+  #   external: true

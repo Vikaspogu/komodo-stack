@@ -16,8 +16,8 @@ services:
     volumes:
       - uptimekuma-data:/app/data
     restart: unless-stopped
-    networks:
-      - traefik_traefik
-networks:
-  traefik_traefik:
-    external: true
+    # networks:
+    #   - traefik_traefik
+# networks:
+#   traefik_traefik:
+#     external: true

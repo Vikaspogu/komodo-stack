@@ -15,8 +15,8 @@ services:
     volumes:
       - ./beszel_data:/beszel_data
       - ./beszel_socket:/beszel_socket
-    networks:
-      - traefik_traefik
+    # networks:
+    #   - traefik_traefik
 
   beszel-agent:
     image: henrygd/beszel-agent:latest
@@ -33,6 +33,6 @@ services:
       # Do not remove quotes around the key
       KEY: 'UPDATE WITH YOUR PUBLIC KEY (copy from "Add system" dialog)'
 
-networks:
-  traefik_traefik:
-    external: true
+# networks:
+#   traefik_traefik:
+#     external: true
