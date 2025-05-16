@@ -1,39 +1,11 @@
-networks:
-  traefik:
-    driver: overlay
-    attachable: true
+version: '3.3'
 
 services:
   traefik:
-    image: "traefik:v3.4"
-    container_name: "traefik"
-    networks:
-      - traefik
-    command:
-      - "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.swarm.endpoint=unix:///var/run/docker.sock"
-      - "--providers.swarm.exposedByDefault=false"
-      - "--entryPoints.web.address=:80"
-      - "--entryPoints.websecure.address=:443"
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      # SSL/TLS Properties
-      - "--entrypoints.websecure.http.tls.certResolver=myresolver"
-      - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
-      - "--entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}"
-      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=${ACME_PROVIDER}"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge.disablePropagationCheck=true"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge.delayBeforeCheck=60"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
-
+    image: traefik:v3.4
     ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
+      - 80:80
+      - 443:443
     environment:
       - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
     deploy:
@@ -41,15 +13,42 @@ services:
         constraints:
           - node.role == manager
       labels:
-      - "traefik.enable=true"
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-      - "traefik.http.routers.traefik-secure.entrypoints=websecure"
-      - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.${DOMAIN}`)"
-      - "traefik.http.routers.traefik-secure.tls=true"
-      - "traefik.http.routers.traefik-secure.service=api@internal"
-      - traefik.http.services.traefik.loadbalancer.server.port=8080
+        - traefik.enable=true
+        - traefik.docker.network=traefik
+        - traefik.constraint-label=traefik
+        - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
+        - traefik.http.routers.traefik-http.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.traefik-http.entrypoints=http
+        - traefik.http.routers.traefik-http.middlewares=https-redirect
+        - traefik.http.routers.traefik-https.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.traefik-https.entrypoints=https
+        - traefik.http.routers.traefik-https.tls=true
+        - traefik.http.routers.traefik-https.service=api@internal
+        - traefik.http.routers.traefik-https.tls.certresolver=le
+        - traefik.http.services.traefik.loadbalancer.server.port=8080
     volumes:
-      - "./letsencrypt:/letsencrypt"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-certificates:/certificates
+    command:
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --providers.swarm.endpoint=unix:///var/run/docker.sock
+      - --entrypoints.http.address=:80
+      - --entrypoints.https.address=:443
+      - --certificatesresolvers.le.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/certificates/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --certificatesresolvers.le.acme.tlschallenge.provider=${ACME_PROVIDER}
+      - --accesslog
+      - --log
+      - --api
+    networks:
+      - traefik
+
+volumes:
+  traefik-certificates:
+
+networks:
+  traefik:
+    external: true

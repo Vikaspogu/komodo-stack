@@ -7,24 +7,6 @@ enabled = true
 ##
 
 [[stack]]
-name = "alerter"
-deploy = true
-[stack.config]
-server = "swarm"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "alerter"
-send_alerts = true
-auto_update = true
-environment = """
-GOTIFY_URL = [[GOTIFY_URL]] # interpolate variables into the envs.
-GOTIFY_APP_TOKEN = [[GOTIFY_APP_TOKEN]]
-"""
-
-##
-
-[[stack]]
 name = "uptimekuma"
 deploy = true
 [stack.config]
@@ -55,20 +37,6 @@ ACME_EMAIL = [[ACME_EMAIL]]
 ACME_PROVIDER = [[ACME_PROVIDER]]
 DUCKDNS_TOKEN= [[DUCKDNS_TOKEN]]
 """
-
-##
-
-[[stack]]
-name = "dozzle"
-deploy = true
-[stack.config]
-server = "swarm"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "dozzle"
-send_alerts = true
-auto_update = true
 
 ##
 
