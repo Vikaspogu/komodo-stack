@@ -9,10 +9,10 @@ services:
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik
-        - traefik.http.routers.uptimekuma-http.rule=Host(`synlo.duckdns.org`)
+        - traefik.http.routers.uptimekuma-http.rule=Host(`uptime.synlo.duckdns.org`)
         - traefik.http.routers.uptimekuma-http.entrypoints=http
         - traefik.http.routers.uptimekuma-http.middlewares=https-redirect
-        - traefik.http.routers.uptimekuma-https.rule=Host(`synlo.duckdns.org`)
+        - traefik.http.routers.uptimekuma-https.rule=Host(`uptime.synlo.duckdns.org`)
         - traefik.http.routers.uptimekuma-https.entrypoints=https
         - traefik.http.routers.uptimekuma-https.tls=true
         - traefik.http.routers.uptimekuma-https.tls.certresolver=le
