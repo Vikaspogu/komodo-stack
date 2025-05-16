@@ -1,0 +1,25 @@
+services:
+  bytestash:
+    image: "ghcr.io/jordan-dalby/bytestash:latest"
+    restart: always
+    volumes:
+      - bytestash_data:/data/snippets
+    ports:
+      - "5000:5000"
+    environment:
+      JWT_SECRET: ${BYTESTASH_JWT_SECRET}
+      TOKEN_EXPIRY: 24h
+      ALLOW_NEW_ACCOUNTS: "false"
+      DEBUG: "true"
+      DISABLE_ACCOUNTS: "false"
+      DISABLE_INTERNAL_ACCOUNTS: "true"
+
+      # See https://github.com/jordan-dalby/ByteStash/wiki/Single-Sign%E2%80%90on-Setup for more info
+      OIDC_ENABLED: "true"
+      OIDC_DISPLAY_NAME: "PocketID"
+      OIDC_ISSUER_URL: "https://auth.vikaspogu.com/authorize"
+      OIDC_CLIENT_ID: "${BYTESTASH_CLIENT_ID}"
+      OIDC_CLIENT_SECRET: "${BYTESTASH_CLIENT_SECRET}"
+      OIDC_SCOPES: "openid profile email"
+volumes:
+  bytestash_data:

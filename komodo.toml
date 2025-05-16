@@ -117,6 +117,25 @@ auto_update = true
 
 ##
 
+[[stack]]
+name = "bytestash"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "bytestash"
+send_alerts = true
+auto_update = true
+environment = """
+BYTESTASH_JWT_SECRET = [[BYTESTASH_JWT_SECRET]] # interpolate variables into the envs.
+BYTESTASH_CLIENT_ID = [[BYTESTASH_CLIENT_ID]]
+BYTESTASH_CLIENT_SECRET = [[BYTESTASH_CLIENT_SECRET]]
+"""
+
+##
+
 [[builder]]
 name = "local"
 [builder.config]
