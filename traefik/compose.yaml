@@ -24,7 +24,7 @@ services:
         - traefik.http.services.traefik.loadbalancer.server.port=8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - "./letsencrypt:/letsencrypt"
+      - traefik-certificates:/certificates
     command:
       - "--log.level=DEBUG"
       - "--api.insecure=true"
@@ -40,10 +40,12 @@ services:
       - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
       - "--entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}"
       - "--certificatesresolvers.le.acme.email=${ACME_EMAIL}"
-      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.le.acme.storage=/certificates/acme.json"
       - "--certificatesresolvers.le.acme.dnschallenge.provider=${ACME_PROVIDER}"
     networks:
       - traefik
+volumes:
+  traefik-certificates:
 
 networks:
   traefik:
