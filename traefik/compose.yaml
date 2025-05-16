@@ -25,6 +25,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=${ACME_PROVIDER}"
       - "--certificatesresolvers.myresolver.acme.dnschallenge.disablePropagationCheck=true"
       - "--certificatesresolvers.myresolver.acme.dnschallenge.delayBeforeCheck=60"
+      - "--certificatesresolvers.myresolver.acme.dnschallenge.resolvers=['1.1.1.1:53','8.8.8.8:53']"
 
     ports:
       - "80:80"
