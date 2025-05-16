@@ -2,35 +2,28 @@ services:
   traefik:
     image: traefik:v3.4
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
       - "8080:8080"
     environment:
       - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
-    deploy:
-      placement:
-        constraints:
-          - node.role == manager
-      labels:
-        - traefik.enable=true
-        - traefik.docker.network=traefik
-        - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-        - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-        - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-        - "traefik.http.routers.traefik-secure.entrypoints=websecure"
-        - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.${DOMAIN}`)"
-        - "traefik.http.routers.traefik-secure.tls=true"
-        - "traefik.http.routers.traefik-secure.service=api@internal"
-        - traefik.http.services.traefik.loadbalancer.server.port=8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=websecure"
+      - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.${DOMAIN}`)"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-certificates:/certificates
     command:
       - "--log.level=DEBUG"
       - "--api.insecure=true"
-      - --providers.docker
-      - --providers.docker.exposedbydefault=false
-      - --providers.swarm.endpoint=unix:///var/run/docker.sock
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
       - "--entryPoints.web.address=:80"
       - "--entryPoints.websecure.address=:443"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
@@ -49,4 +42,4 @@ volumes:
 
 networks:
   traefik:
-    external: true
+    external: false

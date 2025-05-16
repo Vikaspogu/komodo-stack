@@ -1,0 +1,12 @@
+auth:
+  methods:
+    password:
+      enabled: false # set to false if you only want to allow OIDC
+    oidc:
+      enabled: true
+      clientId: "${FILEBROWSER_OIDC_CLIENTID}"
+      clientSecret: "${FILEBROWSER_OIDC_CLIENTSECRET}"
+      authorizationUrl: https://auth.vikaspogu.com/authorize
+      tokenUrl: https://auth.vikaspogu.com/api/oidc/token
+      userInfoUrl: https://auth.vikaspogu.com/api/oidc/userinfo
+      scopes: "email openid profile"

@@ -1,6 +1,6 @@
-# networks:
-#   komodo_default:
-#     external: true
+networks:
+  komodo_default:
+    external: true
 services:
   komodo-gotify:
     image: foxxmd/komodo-gotify-alerter:latest
@@ -15,5 +15,5 @@ services:
       - GOTIFY_APP_TOKEN=${GOTIFY_APP_TOKEN}
     ports:
       - "7000:7000"
-    # networks:
-    #   - komodo_default
+    networks:
+      - komodo_default

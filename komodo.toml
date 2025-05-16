@@ -1,5 +1,5 @@
 [[server]]
-name = "swarm"
+name = "omv-odin"
 [server.config]
 address = "https://periphery:8120"
 enabled = true
@@ -7,10 +7,46 @@ enabled = true
 ##
 
 [[stack]]
+name = "alerter"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "alerter"
+send_alerts = true
+auto_update = true
+environment = """
+GOTIFY_URL = [[GOTIFY_URL]] # interpolate variables into the envs.
+GOTIFY_APP_TOKEN = [[GOTIFY_APP_TOKEN]]
+"""
+
+##
+
+[[stack]]
+name = "filebrowser"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "filebrowser"
+send_alerts = true
+auto_update = true
+environment = """
+FILEBROWSER_OIDC_CLIENTID = [[FILEBROWSER_OIDC_CLIENTID]]
+FILEBROWSER_OIDC_CLIENTSECRET = [[FILEBROWSER_OIDC_CLIENTSECRET]]
+"""
+
+##
+
+[[stack]]
 name = "uptimekuma"
 deploy = true
 [stack.config]
-server = "swarm"
+server = "omv-odin"
 git_provider = "github.com"
 git_account = "vikaspogu"
 repo = "vikaspogu/komodo-stack"
@@ -24,7 +60,7 @@ auto_update = true
 name = "traefik"
 deploy = true
 [stack.config]
-server = "swarm"
+server = "omv-odin"
 git_provider = "github.com"
 git_account = "vikaspogu"
 repo = "vikaspogu/komodo-stack"
@@ -44,7 +80,7 @@ DUCKDNS_TOKEN= [[DUCKDNS_TOKEN]]
 name = "local"
 [builder.config]
 type = "Server"
-params.server_id = "swarm"
+params.server_id = "omv-odin"
 
 ##
 

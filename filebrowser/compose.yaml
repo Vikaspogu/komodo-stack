@@ -1,0 +1,27 @@
+services:
+  filebrowser:
+    image: ghcr.io/gtsteffaniak/filebrowser:0.7.2-beta
+    container_name: filebrowser
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.filebrowser.tls=true"
+      - "traefik.http.routers.filebrowser.rule=Host(`files.synlo.duckdns.org`)"
+      - "traefik.http.routers.filebrowser.entrypoints=websecure"
+    volumes:
+      - /srv/dev-disk-by-uuid-806d3f9f-c5ac-42ca-91ce-35f1876f7315/storage0:/srv #Change to match your directory
+      # optional if you want db to persist - configure a path under "database" dir in config file.
+      - database:/home/filebrowser/database
+      - 'config.yaml:/home/filebrowser/config.yaml'
+    environment:
+      - PUID=$(id -u)
+      - PGID=$(id -g)
+    ports:
+      - 8095:80 #Change the port if needed
+    networks:
+      - traefik_traefik
+volumes:
+  database:
+  
+networks:
+  traefik_traefik:
+    external: true

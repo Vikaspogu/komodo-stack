@@ -2,26 +2,17 @@ services:
   dozzle:
     image: amir20/dozzle:v8.12
     container_name: dozzle
-    deploy:
-      mode: global
-      labels:
+    labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dozzle.tls=true"
       - "traefik.http.routers.dozzle.rule=Host(`dozzle.synlo.duckdns.org`)"
       - "traefik.http.routers.dozzle.entrypoints=websecure"
-      - "traefik.http.services.uptimekuma-service.loadbalancer.server.port=8080"
-    environment:
-      - DOZZLE_MODE=swarm
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 8080:8080
+      - 8081:8081
     networks:
-      - dozzle
-      # - traefik_traefik
-
+      - traefik_traefik
 networks:
-  dozzle:
-    driver: overlay
-  # traefik_traefik:
-  #   external: true
+  traefik_traefik:
+    external: true

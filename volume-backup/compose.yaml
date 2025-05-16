@@ -1,0 +1,10 @@
+services:
+  backup:
+    image: offen/docker-volume-backup:latest
+    restart: always
+    volumes:
+      - data:/backup/data:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /srv/dev-disk-by-uuid-806d3f9f-c5ac-42ca-91ce-35f1876f7315/storage0/docker-backups:/archive
+volumes:
+  data:
