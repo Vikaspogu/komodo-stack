@@ -11,7 +11,7 @@ services:
       - /srv/dev-disk-by-uuid-806d3f9f-c5ac-42ca-91ce-35f1876f7315/storage0:/srv #Change to match your directory
       # optional if you want db to persist - configure a path under "database" dir in config file.
       - database:/home/filebrowser/database
-      - '/home/vikaspogu/komodo/stacks/filebrowser/filebrowser/config.yaml:/home/filebrowser/config.yaml'
+      - 'config.yaml:/home/filebrowser/config.yaml'
     environment:
       - PUID=$(id -u)
       - PGID=$(id -g)

@@ -35,6 +35,7 @@ git_provider = "github.com"
 git_account = "vikaspogu"
 repo = "vikaspogu/komodo-stack"
 run_directory = "alerter"
+file_paths = ["compose.yaml", "config.yaml"]
 send_alerts = true
 auto_update = true
 environment = """
