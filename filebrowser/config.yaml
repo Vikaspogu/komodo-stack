@@ -10,5 +10,5 @@ auth:
       enabled: true
       clientId: "${FILEBROWSER_OIDC_CLIENTID}"
       clientSecret: "${FILEBROWSER_OIDC_CLIENTSECRET}"
-      issuerUrl: https://auth.vikaspogu.com/authorize
+      issuerUrl: "https://auth.vikaspogu.com/.well-known/openid-configuration"
       scopes: "email openid profile"
