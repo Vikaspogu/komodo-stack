@@ -23,6 +23,9 @@ services:
       - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=${ACME_PROVIDER}"
+      - "--certificatesresolvers.myresolver.acme.dnschallenge.disablePropagationCheck=true"
+      - "--certificatesresolvers.myresolver.acme.dnschallenge.delayBeforeCheck=60"
+
     ports:
       - "80:80"
       - "443:443"
