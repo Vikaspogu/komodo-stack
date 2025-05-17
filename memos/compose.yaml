@@ -1,0 +1,24 @@
+services:
+  memos:
+    image: neosmemo/memos:stable
+    container_name: memos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.memos.tls=true"
+      - "traefik.http.routers.memos.rule=Host(`memos.synlo.duckdns.org`)"
+      - "traefik.http.routers.memos.entrypoints=websecure"
+      - "memos.type=application"
+      - "memos.name=memos Dashboard"
+      - "memos.url=https://memos.synlo.duckdns.org"
+    volumes:
+      - memos_data:/var/opt/memos
+    ports:
+      - 5230:5230
+    networks:
+      - traefik_traefik
+volumes:
+  memos_data:
+  
+networks:
+  traefik_traefik:
+    external: true
