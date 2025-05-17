@@ -7,6 +7,9 @@ services:
       - "traefik.http.routers.bytestash.tls=true"
       - "traefik.http.routers.bytestash.rule=Host(`bytestash.synlo.duckdns.org`)"
       - "traefik.http.routers.bytestash.entrypoints=websecure"
+      - "flame.type=application"
+      - "flame.name=bytestash"
+      - "flame.url=https://bytestash.synlo.duckdns.org"
     networks:
       - traefik_traefik
     volumes:

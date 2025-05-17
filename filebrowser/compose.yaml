@@ -7,6 +7,9 @@ services:
       - "traefik.http.routers.filebrowser.tls=true"
       - "traefik.http.routers.filebrowser.rule=Host(`files.synlo.duckdns.org`)"
       - "traefik.http.routers.filebrowser.entrypoints=websecure"
+      - "flame.type=application"
+      - "flame.name=filebrowser"
+      - "flame.url=https://files.synlo.duckdns.org"
     volumes:
       - /srv/dev-disk-by-uuid-806d3f9f-c5ac-42ca-91ce-35f1876f7315/storage0:/srv
       - database:/home/filebrowser/database
