@@ -1,0 +1,30 @@
+version: '3.6'
+
+services:
+  flame:
+    image: pawelmalak/flame
+    container_name: flame
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.flame.tls=true"
+      - "traefik.http.routers.flame.rule=Host(`flame.synlo.duckdns.org`)"
+      - "traefik.http.routers.flame.entrypoints=websecure"
+      - "flame.type=application"
+      - "flame.name=Flame Dashboard"
+      - "flame.url=https://flame.synlo.duckdns.org"
+    volumes:
+      - flame_data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 5005:5005
+    environment:
+      - PASSWORD=${FLAME_PASSWORD}
+    restart: unless-stopped
+    networks:
+      - traefik_traefik
+volumes:
+  flame_data:
+  
+networks:
+  traefik_traefik:
+    external: true

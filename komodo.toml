@@ -104,6 +104,23 @@ FILEBROWSER_ADMIN_PASSWORD = [[FILEBROWSER_OIDC_CLIENTID]]
 ##
 
 [[stack]]
+name = "flame"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "flame"
+send_alerts = true
+auto_update = true
+environment = """
+FLAME_PASSWORD = [[FLAME_PASSWORD]]
+"""
+
+##
+
+[[stack]]
 name = "uptimekuma"
 deploy = true
 [stack.config]
