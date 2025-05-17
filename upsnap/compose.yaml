@@ -9,8 +9,6 @@ services:
       - "traefik.http.routers.upsnap.tls=true"
       - "traefik.http.routers.upsnap.rule=Host(`upsnap.synlo.duckdns.org`)"
       - "traefik.http.routers.upsnap.entrypoints=websecure"
-    networks:
-      - traefik_traefik
     ports:
       - "8050:8050"
     volumes:
