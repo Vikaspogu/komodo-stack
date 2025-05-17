@@ -7,9 +7,9 @@ services:
       - "traefik.http.routers.memos.tls=true"
       - "traefik.http.routers.memos.rule=Host(`memos.synlo.duckdns.org`)"
       - "traefik.http.routers.memos.entrypoints=websecure"
-      - "memos.type=application"
-      - "memos.name=memos Dashboard"
-      - "memos.url=https://memos.synlo.duckdns.org"
+      - "flame.type=application"
+      - "flame.name=memos Dashboard"
+      - "flame.url=https://memos.synlo.duckdns.org"
     volumes:
       - memos_data:/var/opt/memos
     ports:
@@ -18,7 +18,7 @@ services:
       - traefik_traefik
 volumes:
   memos_data:
-  
+
 networks:
   traefik_traefik:
     external: true
