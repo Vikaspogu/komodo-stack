@@ -118,6 +118,20 @@ auto_update = true
 ##
 
 [[stack]]
+name = "upsnap"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "upsnap"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
 name = "bytestash"
 deploy = true
 [stack.config]

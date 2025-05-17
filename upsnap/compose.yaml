@@ -1,0 +1,30 @@
+services:
+  upsnap:
+    container_name: upsnap
+    image: ghcr.io/seriousm4x/upsnap:5.0.8 # images are also available on docker hub: seriousm4x/upsnap:5
+    network_mode: host
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.upsnap.tls=true"
+      - "traefik.http.routers.upsnap.rule=Host(`upsnap.synlo.duckdns.org`)"
+      - "traefik.http.routers.upsnap.entrypoints=websecure"
+    networks:
+      - traefik_traefik
+    ports:
+      - "8050:8050"
+    volumes:
+      - upsnap_data:/app/pb_data
+    user: 1000:1000
+    environment:
+      - TZ=America/New_York # Set container timezone for cron schedules
+      - UPSNAP_INTERVAL=*/10 * * * * * # Sets the interval in which the devices are pinged
+      - UPSNAP_SCAN_TIMEOUT=500ms # Scan timeout is nmap's --host-timeout value to wait for devices (https://nmap.org/book/man-performance.html)
+      - UPSNAP_PING_PRIVILEGED=true # Set to false if you don't have root user permissions
+    # you can change the listen ip:port inside the container like this:
+    entrypoint: /bin/sh -c "./upsnap serve --http 0.0.0.0:8050"
+    healthcheck:
+      test: curl -fs "http://localhost:8050/api/health" || exit 1
+      interval: 10s
+volumes:
+  upsnap_data:
