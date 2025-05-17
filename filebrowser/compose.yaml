@@ -13,6 +13,7 @@ services:
     environment:
       - PUID=$(id -u)
       - PGID=$(id -g)
+      - FILEBROWSER_ADMIN_PASSWORD=${FILEBROWSER_ADMIN_PASSWORD}
     ports:
       - 8095:8095
     networks:
