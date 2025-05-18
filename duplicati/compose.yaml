@@ -4,6 +4,8 @@ services:
     image: lscr.io/linuxserver/duplicati:2.1.0
     container_name: duplicati
     environment:
+      - PUID=1000
+      - PGID=1002
       - TZ=America/New_York
       - SETTINGS_ENCRYPTION_KEY=${DUPLICATI_SETTINGS_ENCRYPTION_KEY}
       - DUPLICATI__WEBSERVICE_PASSWORD=${DUPLICATI_WEBSERVICE_PASSWORD}
