@@ -10,9 +10,9 @@ services:
       - "traefik.http.routers.uptimekuma.tls=true"
       - "traefik.http.routers.uptimekuma.rule=Host(`uptime.synlo.duckdns.org`)"
       - "traefik.http.routers.uptimekuma.entrypoints=websecure"
-      - "flame.type=application"
-      - "flame.name=uptime"
-      - "flame.url=https://uptime.synlo.duckdns.org"
+      - "homepage.group=traefik"
+      - "homepage.name=uptime"
+      - "homepage.hrefl=https://uptime.synlo.duckdns.org"
     ports:
       - 3001:3001
     volumes:

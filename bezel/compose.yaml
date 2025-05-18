@@ -8,9 +8,9 @@ services:
       - "traefik.http.routers.beszel.tls=true"
       - "traefik.http.routers.beszel.rule=Host(`beszel.synlo.duckdns.org`)"
       - "traefik.http.routers.beszel.entrypoints=websecure"
-      - "flame.type=application"
-      - "flame.name=beszel"
-      - "flame.url=https://beszel.synlo.duckdns.org"
+      - "homepage.group=traefik"
+      - "homepage.name=beszel"
+      - "homepage.hrefl=https://beszel.synlo.duckdns.org"
     ports:
       - 8090:8090
     volumes:

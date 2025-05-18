@@ -7,9 +7,9 @@ services:
       - "traefik.http.routers.memos.tls=true"
       - "traefik.http.routers.memos.rule=Host(`memos.synlo.duckdns.org`)"
       - "traefik.http.routers.memos.entrypoints=websecure"
-      - "flame.type=application"
-      - "flame.name=memos"
-      - "flame.url=https://memos.synlo.duckdns.org"
+      - "homepage.group=traefik"
+      - "homepage.name=memos"
+      - "homepage.hrefl=https://memos.synlo.duckdns.org"
     volumes:
       - memos_data:/var/opt/memos
     ports:

@@ -7,9 +7,9 @@ services:
       - "traefik.http.routers.dozzle.tls=true"
       - "traefik.http.routers.dozzle.rule=Host(`dozzle.synlo.duckdns.org`)"
       - "traefik.http.routers.dozzle.entrypoints=websecure"
-      - "flame.type=application"
-      - "flame.name=dozzle"
-      - "flame.url=https://dozzle.synlo.duckdns.org"
+      - "homepage.group=traefik"
+      - "homepage.name=dozzle"
+      - "homepage.hrefl=https://dozzle.synlo.duckdns.org"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
