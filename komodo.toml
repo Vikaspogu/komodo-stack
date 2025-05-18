@@ -181,6 +181,24 @@ BYTESTASH_CLIENT_SECRET = [[BYTESTASH_CLIENT_SECRET]]
 
 ##
 
+[[stack]]
+name = "duplicati"
+deploy = true
+[stack.config]
+server = "omv-odin"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "duplicati"
+send_alerts = true
+auto_update = true
+environment = """
+DUPLICATI_SETTINGS_ENCRYPTION_KEY = [[DUPLICATI_SETTINGS_ENCRYPTION_KEY]] # interpolate variables into the envs.
+DUPLICATI_WEBSERVICE_PASSWORD = [[DUPLICATI_WEBSERVICE_PASSWORD]]
+"""
+
+##
+
 [[builder]]
 name = "local"
 [builder.config]
