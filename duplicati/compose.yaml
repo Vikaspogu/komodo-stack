@@ -4,15 +4,15 @@ services:
     image: lscr.io/linuxserver/duplicati:2.1.0
     container_name: duplicati
     environment:
-      - PUID=1000
-      - PGID=1002
+      - PUID=0
+      - PGID=0
       - TZ=America/New_York
       - SETTINGS_ENCRYPTION_KEY=${DUPLICATI_SETTINGS_ENCRYPTION_KEY}
       - DUPLICATI__WEBSERVICE_PASSWORD=${DUPLICATI_WEBSERVICE_PASSWORD}
     volumes:
       - duplicati_data:/config
-      - /srv/dev-disk-by-uuid-806d3f9f-c5ac-42ca-91ce-35f1876f7315/storage0/duplicati-backups:/backups
-      - /var/lib/docker/volumes:/source
+      - /srv/dev-disk-by-uuid-806d3f9f-c5ac-42ca-91ce-35f1876f7315/storage0:/backups
+      - /var/lib/docker:/source
     ports:
       - 8200:8200
     restart: unless-stopped
