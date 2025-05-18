@@ -3,7 +3,7 @@ networks:
     external: true
 services:
   komodo-gotify:
-    image: foxxmd/komodo-gotify-alerter:latest
+    image: foxxmd/komodo-gotify-alerter:0.0.8
     container_name: komodo-gotify-alerter
     environment:
       - GOTIFY_OK_PRIORITY=3

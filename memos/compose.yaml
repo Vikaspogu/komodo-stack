@@ -1,6 +1,6 @@
 services:
   memos:
-    image: neosmemo/memos:stable
+    image: neosmemo/memos:0.24
     container_name: memos
     labels:
       - "traefik.enable=true"

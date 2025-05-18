@@ -1,6 +1,6 @@
 services:
   backup:
-    image: offen/docker-volume-backup:latest
+    image: offen/docker-volume-backup:v2.43.3
     restart: always
     volumes:
       - /var/lib/docker/volumes:/backup/data:ro
