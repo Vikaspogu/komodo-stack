@@ -9,7 +9,7 @@ services:
       - "traefik.http.routers.bytestash.entrypoints=websecure"
       - "homepage.group=traefik"
       - "homepage.name=bytestash"
-      - "homepage.hrefl=https://bytestash.synlo.duckdns.org"
+      - "homepage.href=https://bytestash.synlo.duckdns.org"
     networks:
       - traefik_traefik
     volumes:

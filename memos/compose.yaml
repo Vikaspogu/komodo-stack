@@ -9,7 +9,7 @@ services:
       - "traefik.http.routers.memos.entrypoints=websecure"
       - "homepage.group=traefik"
       - "homepage.name=memos"
-      - "homepage.hrefl=https://memos.synlo.duckdns.org"
+      - "homepage.href=https://memos.synlo.duckdns.org"
     volumes:
       - memos_data:/var/opt/memos
     ports:

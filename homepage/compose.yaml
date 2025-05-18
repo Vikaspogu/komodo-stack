@@ -13,7 +13,7 @@ services:
       - "traefik.http.routers.homepage.entrypoints=websecure"
       - "homepage.group=traefik"
       - "homepage.name=homepage"
-      - "homepage.hrefl=https://homepage.synlo.duckdns.org"
+      - "homepage.href=https://homepage.synlo.duckdns.org"
     volumes:
       - homepage_data:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations

@@ -12,7 +12,7 @@ services:
       - "traefik.http.routers.uptimekuma.entrypoints=websecure"
       - "homepage.group=traefik"
       - "homepage.name=uptime"
-      - "homepage.hrefl=https://uptime.synlo.duckdns.org"
+      - "homepage.href=https://uptime.synlo.duckdns.org"
     ports:
       - 3001:3001
     volumes:

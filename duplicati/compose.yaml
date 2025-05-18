@@ -23,7 +23,7 @@ services:
       - "traefik.http.routers.duplicati.entrypoints=websecure"
       - "homepage.group=traefik"
       - "homepage.name=duplicati"
-      - "homepage.hrefl=https://duplicati.synlo.duckdns.org"
+      - "homepage.href=https://duplicati.synlo.duckdns.org"
     networks:
       - traefik_traefik
 networks:

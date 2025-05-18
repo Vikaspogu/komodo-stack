@@ -10,7 +10,7 @@ services:
       - "traefik.http.routers.beszel.entrypoints=websecure"
       - "homepage.group=traefik"
       - "homepage.name=beszel"
-      - "homepage.hrefl=https://beszel.synlo.duckdns.org"
+      - "homepage.href=https://beszel.synlo.duckdns.org"
     ports:
       - 8090:8090
     volumes:

@@ -9,7 +9,7 @@ services:
       - "traefik.http.routers.filebrowser.entrypoints=websecure"
       - "homepage.group=traefik"
       - "homepage.name=filebrowser"
-      - "homepage.hrefl=https://files.synlo.duckdns.org"
+      - "homepage.href=https://files.synlo.duckdns.org"
     volumes:
       - /srv/dev-disk-by-uuid-806d3f9f-c5ac-42ca-91ce-35f1876f7315/storage0:/srv
       - database:/home/filebrowser/database

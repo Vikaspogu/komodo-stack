@@ -14,7 +14,7 @@ services:
       - "traefik.http.services.upsnap.loadbalancer.server.port=8050"
       - "homepage.group=traefik"
       - "homepage.name=upsnap"
-      - "homepage.hrefl=https://upsnap.synlo.duckdns.org"
+      - "homepage.href=https://upsnap.synlo.duckdns.org"
     ports:
       - "8050:8050"
     volumes:

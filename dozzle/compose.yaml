@@ -9,7 +9,7 @@ services:
       - "traefik.http.routers.dozzle.entrypoints=websecure"
       - "homepage.group=traefik"
       - "homepage.name=dozzle"
-      - "homepage.hrefl=https://dozzle.synlo.duckdns.org"
+      - "homepage.href=https://dozzle.synlo.duckdns.org"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
