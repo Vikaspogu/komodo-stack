@@ -132,20 +132,6 @@ auto_update = true
 ##
 
 [[stack]]
-name = "uptimekuma"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "uptimekuma"
-send_alerts = true
-auto_update = true
-
-##
-
-[[stack]]
 name = "upsnap"
 deploy = true
 [stack.config]
@@ -174,24 +160,6 @@ environment = """
 BYTESTASH_JWT_SECRET = [[BYTESTASH_JWT_SECRET]] # interpolate variables into the envs.
 BYTESTASH_CLIENT_ID = [[BYTESTASH_CLIENT_ID]]
 BYTESTASH_CLIENT_SECRET = [[BYTESTASH_CLIENT_SECRET]]
-"""
-
-##
-
-[[stack]]
-name = "duplicati"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "duplicati"
-send_alerts = true
-auto_update = true
-environment = """
-DUPLICATI_SETTINGS_ENCRYPTION_KEY = [[DUPLICATI_SETTINGS_ENCRYPTION_KEY]] # interpolate variables into the envs.
-DUPLICATI_WEBSERVICE_PASSWORD = [[DUPLICATI_WEBSERVICE_PASSWORD]]
 """
 
 ##
