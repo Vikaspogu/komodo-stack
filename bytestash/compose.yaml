@@ -26,8 +26,8 @@ services:
 
       # See https://github.com/jordan-dalby/ByteStash/wiki/Single-Sign%E2%80%90on-Setup for more info
       OIDC_ENABLED: "true"
-      OIDC_DISPLAY_NAME: "PocketID"
-      OIDC_ISSUER_URL: "https://auth.vikaspogu.com"
+      OIDC_DISPLAY_NAME: "Authentik"
+      OIDC_ISSUER_URL: "https://id.vikaspogu.com/application/o/bytestash/"
       OIDC_CLIENT_ID: "${BYTESTASH_CLIENT_ID}"
       OIDC_CLIENT_SECRET: "${BYTESTASH_CLIENT_SECRET}"
       OIDC_SCOPES: "openid profile email"
