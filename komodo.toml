@@ -164,20 +164,6 @@ BYTESTASH_CLIENT_SECRET = [[BYTESTASH_CLIENT_SECRET]]
 
 ##
 
-[[stack]]
-name = "llama-cpp"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "llama-cpp"
-send_alerts = true
-auto_update = true
-
-##
-
 [[builder]]
 name = "local"
 [builder.config]

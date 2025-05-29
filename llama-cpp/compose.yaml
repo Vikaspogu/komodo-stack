@@ -1,8 +1,0 @@
-services:
-  llama.cpp:
-    volumes:
-      - /srv/dev-disk-by-uuid-806d3f9f-c5ac-42ca-91ce-35f1876f7315/storage0/pogu-nas/media/llama-models/:/models
-    ports:
-      - 8000:8000
-    image: ghcr.io/ggml-org/llama.cpp:server
-    command: -m /models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --port 8000 --host 0.0.0.0 -n 512
