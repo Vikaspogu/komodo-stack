@@ -11,6 +11,7 @@ services:
       - "homepage.group=traefik"
       - "homepage.name=beszel"
       - "homepage.href=https://beszel.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/beszel.png"
     ports:
       - 8090:8090
     volumes:

@@ -10,6 +10,7 @@ services:
       - "homepage.group=traefik"
       - "homepage.name=bytestash"
       - "homepage.href=https://bytestash.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/bytestash.png"
     networks:
       - traefik_traefik
     volumes:

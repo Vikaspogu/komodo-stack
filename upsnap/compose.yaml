@@ -15,6 +15,7 @@ services:
       - "homepage.group=traefik"
       - "homepage.name=upsnap"
       - "homepage.href=https://upsnap.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/upsnap.png"
     ports:
       - "8050:8050"
     volumes:

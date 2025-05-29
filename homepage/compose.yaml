@@ -14,6 +14,7 @@ services:
       - "homepage.group=traefik"
       - "homepage.name=homepage"
       - "homepage.href=https://homepage.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/homepage.png"
     volumes:
       - homepage_data:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations

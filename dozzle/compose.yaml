@@ -10,6 +10,7 @@ services:
       - "homepage.group=traefik"
       - "homepage.name=dozzle"
       - "homepage.href=https://dozzle.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/dozzle.png"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
