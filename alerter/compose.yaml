@@ -5,7 +5,7 @@ services:
   sops:
     image: ghcr.io/getsops/sops:v3.10.2-alpine
     entrypoint: >
-      sh -c "sops -d /shared/secrets.sops.env > /shared/secrets.env && tail -f /dev/null"
+      sh -c "sops -d /shared/secrets.sops.env > /shared/secrets.env"
     environment:
       - SOPS_AGE_KEY_FILE=/age/key.txt
     volumes:
@@ -15,7 +15,8 @@ services:
     image: foxxmd/komodo-gotify-alerter:0.0.8
     container_name: komodo-gotify-alerter
     depends_on:
-      - sops
+      sops:
+        condition: service_completed_successfully
     environment:
       - GOTIFY_OK_PRIORITY=3
       - GOTIFY_WARNING_PRIORITY=5
