@@ -2,17 +2,26 @@ networks:
   komodo_default:
     external: true
 services:
+  sops:
+    image: ghcr.io/getsops/sops:sha256-42514a95c2758596864ee0f2cbf463f140e905a04c127c940e1eec558415466c.att
+    command: ["/bin/sh", "-c", "sops -d -i secrets.sops.yaml"]
+    environment:
+      - SOPS_AGE_KEY_FILE=/home/vikaspogu/sops/key.txt
+    volumes:
+      - ./secrets.sops.yaml:secrets.sops.yaml
   komodo-gotify:
     image: foxxmd/komodo-gotify-alerter:0.0.8
     container_name: komodo-gotify-alerter
+    depends_on:
+      sops:
+        condition: service_completed_successfully
     environment:
       - GOTIFY_OK_PRIORITY=3
       - GOTIFY_WARNING_PRIORITY=5
       - GOTIFY_CRITICAL_PRIORITY=8
       - UNRESOLVED_TIMEOUT_TYPES=ServerCpu,ServerMem,ContainerStateChange
       - UNRESOLVED_TIMEOUT=20000
-      - GOTIFY_URL=${GOTIFY_URL}
-      - GOTIFY_APP_TOKEN=${GOTIFY_APP_TOKEN}
+    env_file: ./secrets.sops.yaml
     ports:
       - "7000:7000"
     networks:

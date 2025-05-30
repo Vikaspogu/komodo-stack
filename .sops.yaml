@@ -1,0 +1,9 @@
+---
+creation_rules:
+  - path_regex: .*\.sops\.ya?ml
+    mac_only_encrypted: true
+    key_groups:
+      - age:
+          - "age1ulfhs490lug3kres5qm5kfdmpqmcrwsfsc03eln0s3xffndnrcwq5u86tt"
+stores:
+  yaml:

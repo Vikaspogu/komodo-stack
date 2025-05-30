@@ -1,5 +1,5 @@
 [[server]]
-name = "omv-odin"
+name = "omv-loki"
 [server.config]
 address = "https://periphery:8120"
 enabled = true
@@ -7,160 +7,16 @@ enabled = true
 ##
 
 [[stack]]
-name = "traefik"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "traefik"
-send_alerts = true
-auto_update = true
-environment = """
-DOMAIN = [[DOMAIN]] # interpolate variables into the envs.
-ACME_EMAIL = [[ACME_EMAIL]]
-ACME_PROVIDER = [[ACME_PROVIDER]]
-DUCKDNS_TOKEN= [[DUCKDNS_TOKEN]]
-"""
-
-##
-
-[[stack]]
 name = "alerter"
 deploy = true
 [stack.config]
-server = "omv-odin"
+server = "omv-loki"
 git_provider = "github.com"
 git_account = "vikaspogu"
 repo = "vikaspogu/komodo-stack"
 run_directory = "alerter"
 send_alerts = true
 auto_update = true
-environment = """
-GOTIFY_URL = [[GOTIFY_URL]] # interpolate variables into the envs.
-GOTIFY_APP_TOKEN = [[GOTIFY_APP_TOKEN]]
-"""
-
-##
-
-[[stack]]
-name = "bezel"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "bezel"
-send_alerts = true
-auto_update = true
-
-##
-
-[[stack]]
-name = "dozzle"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "dozzle"
-send_alerts = true
-auto_update = true
-
-##
-
-[[stack]]
-name = "volume-backup"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "volume-backup"
-send_alerts = true
-auto_update = true
-
-##
-
-[[stack]]
-name = "filebrowser"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "filebrowser"
-send_alerts = true
-auto_update = true
-environment = """
-FILEBROWSER_ADMIN_PASSWORD = [[FILEBROWSER_OIDC_CLIENTID]]
-"""
-
-##
-
-[[stack]]
-name = "homepage"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "homepage"
-send_alerts = true
-auto_update = true
-
-##
-
-[[stack]]
-name = "memos"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "memos"
-send_alerts = true
-auto_update = true
-
-##
-
-[[stack]]
-name = "upsnap"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "upsnap"
-send_alerts = true
-auto_update = true
-
-##
-
-[[stack]]
-name = "bytestash"
-deploy = true
-[stack.config]
-server = "omv-odin"
-git_provider = "github.com"
-git_account = "vikaspogu"
-repo = "vikaspogu/komodo-stack"
-run_directory = "bytestash"
-send_alerts = true
-auto_update = true
-environment = """
-BYTESTASH_JWT_SECRET = [[BYTESTASH_JWT_SECRET]] # interpolate variables into the envs.
-BYTESTASH_CLIENT_ID = [[BYTESTASH_CLIENT_ID]]
-BYTESTASH_CLIENT_SECRET = [[BYTESTASH_CLIENT_SECRET]]
-"""
 
 ##
 
@@ -168,7 +24,7 @@ BYTESTASH_CLIENT_SECRET = [[BYTESTASH_CLIENT_SECRET]]
 name = "local"
 [builder.config]
 type = "Server"
-params.server_id = "omv-odin"
+params.server_id = "omv-loki"
 
 ##
 
