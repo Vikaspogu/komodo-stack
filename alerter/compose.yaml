@@ -4,7 +4,8 @@ networks:
 services:
   sops:
     image: ghcr.io/getsops/sops:v3.10.2-alpine
-    command: ["/bin/sh", "-c", "sops -d -i /secrets.sops.yaml"]
+    entrypoint: >
+      sh -c "sops -d -i /secrets.sops.yaml"
     environment:
       - SOPS_AGE_KEY_FILE=/age/key.txt
     volumes:
