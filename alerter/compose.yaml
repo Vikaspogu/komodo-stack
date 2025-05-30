@@ -14,7 +14,7 @@ services:
   komodo-gotify:
     image: foxxmd/komodo-gotify-alerter:0.0.8
     container_name: komodo-gotify-alerter
-    restart: "true"
+    restart: "on-failure"
     depends_on:
       sops:
         condition: service_completed_successfully
