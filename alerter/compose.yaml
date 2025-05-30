@@ -3,7 +3,7 @@ networks:
     external: true
 services:
   sops:
-    image: ghcr.io/getsops/sops:sha256-42514a95c2758596864ee0f2cbf463f140e905a04c127c940e1eec558415466c.att
+    image: ghcr.io/getsops/sops:v3.10.2-alpine
     command: ["/bin/sh", "-c", "sops -d -i /secrets.sops.yaml"]
     environment:
       - SOPS_AGE_KEY_FILE=/age/key.txt
