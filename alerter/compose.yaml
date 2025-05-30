@@ -15,8 +15,7 @@ services:
     image: foxxmd/komodo-gotify-alerter:0.0.8
     container_name: komodo-gotify-alerter
     depends_on:
-      sops:
-        condition: service_healthy
+      - sops
     environment:
       - GOTIFY_OK_PRIORITY=3
       - GOTIFY_WARNING_PRIORITY=5
