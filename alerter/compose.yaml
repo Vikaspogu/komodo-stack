@@ -5,24 +5,25 @@ services:
   sops:
     image: ghcr.io/getsops/sops:v3.10.2-alpine
     entrypoint: >
-      sh -c "sops -d /shared/secrets.sops.env > /shared/secrets.env"
+      sh -c "sops -d -i /secrets.sops.env"
     environment:
       - SOPS_AGE_KEY_FILE=/age/key.txt
     volumes:
-      - ./:/shared
+      - ./secrets.sops.env:/secrets.sops.env
       - /home/vikaspogu/.sops:/age:ro
   komodo-gotify:
     image: foxxmd/komodo-gotify-alerter:0.0.8
     container_name: komodo-gotify-alerter
     depends_on:
-      - sops
+      sops:
+        condition: service_healthy
     environment:
       - GOTIFY_OK_PRIORITY=3
       - GOTIFY_WARNING_PRIORITY=5
       - GOTIFY_CRITICAL_PRIORITY=8
       - UNRESOLVED_TIMEOUT_TYPES=ServerCpu,ServerMem,ContainerStateChange
       - UNRESOLVED_TIMEOUT=20000
-    env_file: ./secrets.env
+    env_file: ./secrets.sops.env
     ports:
       - "7000:7000"
     networks:
