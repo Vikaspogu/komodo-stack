@@ -14,10 +14,11 @@ services:
   komodo-gotify:
     image: foxxmd/komodo-gotify-alerter:0.0.8
     container_name: komodo-gotify-alerter
-    restart: "on-failure"
+    restart: "always"
     depends_on:
       sops:
         condition: service_completed_successfully
+        restart: true
     environment:
       - GOTIFY_OK_PRIORITY=3
       - GOTIFY_WARNING_PRIORITY=5
