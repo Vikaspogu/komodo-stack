@@ -5,7 +5,7 @@ services:
   sops:
     image: ghcr.io/getsops/sops:v3.10.2-alpine
     entrypoint: >
-      sh -c "sops -d /shared/secrets.sops.env > /shared/secrets.env"
+      sh -c "sops -d /shared/secrets.sops.env > /shared/secrets.env && exit 0"
     environment:
       - SOPS_AGE_KEY_FILE=/age/key.txt
     volumes:
