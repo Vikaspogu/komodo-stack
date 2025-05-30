@@ -4,11 +4,11 @@ networks:
 services:
   sops:
     image: ghcr.io/getsops/sops:sha256-42514a95c2758596864ee0f2cbf463f140e905a04c127c940e1eec558415466c.att
-    command: ["/bin/sh", "-c", "sops -d -i secrets.sops.yaml"]
+    command: ["/bin/sh", "-c", "sops -d -i /secrets.sops.yaml"]
     environment:
-      - SOPS_AGE_KEY_FILE=/home/vikaspogu/sops/key.txt
+      - SOPS_AGE_KEY_FILE=/home/vikaspogu/.sops/key.txt
     volumes:
-      - ./secrets.sops.yaml:secrets.sops.yaml
+      - ./secrets.sops.yaml:/secrets.sops.yaml
   komodo-gotify:
     image: foxxmd/komodo-gotify-alerter:0.0.8
     container_name: komodo-gotify-alerter
