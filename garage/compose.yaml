@@ -1,0 +1,59 @@
+services:
+  garage:
+    image: dxflrs/garage:v1.0.1
+    container_name: garage
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.garage.tls=true"
+      - "traefik.http.routers.garage.rule=Host(`s3.synlo.duckdns.org`)"
+      - "traefik.http.routers.garage.entrypoints=websecure"
+      - "traefik.http.services.garage.loadbalancer.server.port=3900"
+      - "traefik.http.routers.garage-web.rule=Host(`web.synlo.duckdns.org`)"
+      - "traefik.http.routers.garage-web.service=garage-web"
+      - "traefik.http.services.garage-web.loadbalancer.server.port=3902"
+      - "homepage.group=traefik"
+      - "homepage.name=garage-s3"
+      - "homepage.href=https://s3.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/garage.png"
+    volumes:
+      - ./garage.toml:/etc/garage.toml
+      - garage_metadata:/var/lib/garage/meta
+      - /srv/dev-disk-by-uuid-9d2e4cb9-8825-4168-8153-e020ee524474/storage0/garage:/var/lib/garage/data
+    restart: unless-stopped
+    networks:
+      - traefik_traefik
+    ports:
+      - 3900:3900
+      - 3901:3901
+      - 3902:3902
+      - 3903:3903
+
+  webui:
+    image: khairul169/garage-webui:latest
+    container_name: garage-webui
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webui.tls=true"
+      - "traefik.http.routers.webui.rule=Host(`webui.synlo.duckdns.org`)"
+      - "traefik.http.routers.webui.entrypoints=websecure"
+      - "homepage.group=traefik"
+      - "homepage.name=webui"
+      - "homepage.href=https://webui.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/garage.png"
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
+    ports:
+      - 3909:3909
+    environment:
+      API_BASE_URL: "http://garage:3903"
+      S3_ENDPOINT_URL: "http://garage:3900"
+    networks:
+      - traefik_traefik
+
+volumes:
+  garage_metadata:
+
+networks:
+  traefik_traefik:
+    external: true

@@ -1,6 +1,6 @@
 ---
 creation_rules:
-  - path_regex: .*\.sops\.env
+  - path_regex: .*\.sops\.*
     mac_only_encrypted: true
     key_groups:
       - age:
