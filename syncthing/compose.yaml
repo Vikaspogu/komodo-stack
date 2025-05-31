@@ -2,7 +2,7 @@
 version: "3"
 services:
   syncthing:
-    image: ghcr.io/syncthing/syncthing:v2@sha256:55e68cca24b95843ceb91d4507d8d8ea3e68f2cd7089a33a2c2db88ad2ad90e8
+    image: ghcr.io/syncthing/syncthing:v2@sha256:0a75d40bff7b4124f2e6fa801128cef4ec70c0209242eeaf52482f2e861ffa69
     container_name: syncthing
     hostname: syncthing
     labels:
