@@ -40,6 +40,91 @@ export SOPS_AGE_KEY_FILE=/home/vikaspogu/.sops/key.txt && /usr/local/bin/sops -d
 
 ##
 
+[[stack]]
+name = "bezel"
+deploy = true
+[stack.config]
+server = "omv-loki"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "bezel"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "dozzle"
+deploy = true
+[stack.config]
+server = "omv-loki"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "dozzle"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "volume-backup"
+deploy = true
+[stack.config]
+server = "omv-loki"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "volume-backup"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "homepage"
+deploy = true
+[stack.config]
+server = "omv-loki"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "homepage"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "memos"
+deploy = true
+[stack.config]
+server = "omv-loki"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "memos"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
+name = "upsnap"
+deploy = true
+[stack.config]
+server = "omv-loki"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "upsnap"
+send_alerts = true
+auto_update = true
+
+
+##
+
 [[builder]]
 name = "local"
 [builder.config]
