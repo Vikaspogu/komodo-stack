@@ -30,7 +30,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       LISTEN: /beszel_socket/beszel.sock
-      KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/xb5WIbmAf3cYpdBK5rW9QNDxtORqURzSvsRigzhtQ'
+      KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMaoB59bOoUmGoQyZtmAEdGGmImkRR7W/+RVmAVnprHi'
 
 networks:
   traefik_traefik:
