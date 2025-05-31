@@ -4,7 +4,6 @@ services:
   syncthing:
     image: ghcr.io/syncthing/syncthing:v2@sha256:55e68cca24b95843ceb91d4507d8d8ea3e68f2cd7089a33a2c2db88ad2ad90e8
     container_name: syncthing
-    network_mode: host
     hostname: syncthing
     labels:
       - "traefik.enable=true"
