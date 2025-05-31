@@ -11,7 +11,6 @@ services:
       - "traefik.http.routers.syncthing.tls=true"
       - "traefik.http.routers.syncthing.rule=Host(`syncthing.synlo.duckdns.org`)"
       - "traefik.http.routers.syncthing.entrypoints=websecure"
-      - "traefik.http.services.syncthing.loadbalancer.server.port=8384"
       - "homepage.group=traefik"
       - "homepage.name=syncthing"
       - "homepage.href=https://syncthing.synlo.duckdns.org"
@@ -22,7 +21,9 @@ services:
     volumes:
       - /srv/dev-disk-by-uuid-9d2e4cb9-8825-4168-8153-e020ee524474/storage0/syncthing:/var/syncthing
     ports:
-      - 22000:22000
+      - 8384:8384 # Web UI
+      - 22000:22000/tcp # TCP file transfers
+      - 22000:22000/udp # QUIC file transfers
       - 21027:21027/udp # Receive local discovery broadcasts
     restart: unless-stopped
     healthcheck:
@@ -30,3 +31,9 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
+    networks:
+      - traefik_traefik
+
+networks:
+  traefik_traefik:
+    external: true
