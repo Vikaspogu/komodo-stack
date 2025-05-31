@@ -125,6 +125,20 @@ auto_update = true
 ##
 
 [[stack]]
+name = "syncthing"
+deploy = true
+[stack.config]
+server = "omv-loki"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "syncthing"
+send_alerts = true
+auto_update = true
+
+##
+
+[[stack]]
 name = "filebrowser"
 deploy = true
 [stack.config]

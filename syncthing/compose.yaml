@@ -1,0 +1,31 @@
+---
+version: "3"
+services:
+  syncthing:
+    image: ghcr.io/syncthing/syncthing:v2@ sha256:55e68cca24b95843ceb91d4507d8d8ea3e68f2cd7089a33a2c2db88ad2ad90e8
+    container_name: syncthing
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.syncthing.tls=true"
+      - "traefik.http.routers.syncthing.rule=Host(`syncthing.synlo.duckdns.org`)"
+      - "traefik.http.routers.syncthing.entrypoints=websecure"
+      - "homepage.group=traefik"
+      - "homepage.name=syncthing"
+      - "homepage.href=https://syncthing.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/syncthing.png"
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /srv/dev-disk-by-uuid-9d2e4cb9-8825-4168-8153-e020ee524474/storage0/syncthing:/var/syncthing
+    ports:
+      - 8384:8384 # Web UI
+      - 22000:22000/tcp # TCP file transfers
+      - 22000:22000/udp # QUIC file transfers
+      - 21027:21027/udp # Receive local discovery broadcasts
+    restart: unless-stopped
+    healthcheck:
+      test: curl -fkLsS -m 2 127.0.0.1:8384/rest/noauth/health | grep -o --color=never OK || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 3
