@@ -18,7 +18,7 @@ run_directory = "alerter"
 send_alerts = true
 auto_update = true
 pre_deploy.command = """
-sops -a /home/vikaspogu/.sops/key.txt -d ./secrets.sops.env > secrets.env
+whoami && sops -a /home/vikaspogu/.sops/key.txt -d ./secrets.sops.env > secrets.env
 """
 
 ##
