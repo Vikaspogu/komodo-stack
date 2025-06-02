@@ -206,6 +206,23 @@ export SOPS_AGE_KEY_FILE=/home/vikaspogu/.sops/key.txt && /usr/local/bin/sops -d
 
 ##
 
+[[stack]]
+name = "immich"
+deploy = true
+[stack.config]
+server = "omv-loki"
+git_provider = "github.com"
+git_account = "vikaspogu"
+repo = "vikaspogu/komodo-stack"
+run_directory = "immich"
+send_alerts = true
+auto_update = true
+pre_deploy.command = """
+export SOPS_AGE_KEY_FILE=/home/vikaspogu/.sops/key.txt && /usr/local/bin/sops -d ./secrets.sops.env > .env
+"""
+
+##
+
 [[builder]]
 name = "local"
 [builder.config]

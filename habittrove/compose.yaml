@@ -16,6 +16,9 @@ services:
     volumes:
       - "habittrove_data:/app/data"
     env_file: .env
+    environment:
+      - TZ=America/New_York
+    restart: unless-stopped
     image: dohsimpson/habittrove:v0.2.22
 
 volumes:

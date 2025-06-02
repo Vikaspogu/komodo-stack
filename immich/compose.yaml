@@ -1,0 +1,86 @@
+services:
+
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    container_name: immich-server
+    volumes:
+      - ${UPLOAD_LOCATION}:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - TZ=America/New_York
+    ports:
+      - 2283:2283
+    expose:
+      - 2283
+    depends_on:
+      - immich-redis
+      - immich-database
+    restart: unless-stopped
+    networks:
+      - traefik_traefik
+      - immich-internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.immich.tls=true"
+      - "traefik.http.routers.immich.rule=Host(`immich.synlo.duckdns.org`)"
+      - "traefik.http.routers.immich.entrypoints=websecure"
+      - traefik.http.services.immich.loadbalancer.server.port=2283
+      - traefik.docker.network=traefik_traefik
+      - "homepage.group=traefik"
+      - "homepage.name=immich"
+      - "homepage.href=https://immich.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/immich.png"
+
+  immich-machine-learning:
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    container_name: immich-ml
+    volumes:
+      - ${UPLOAD_LOCATION}:/usr/src/app/upload
+      - model-cache:/cache
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - traefik_traefik # machine learning requires internet connecting for model download
+      - immich-internal
+
+  immich-redis:
+    image: docker.io/valkey/valkey:8-bookworm@sha256:ff21bc0f8194dc9c105b769aeabf9585fea6a8ed649c0781caeac5cb3c247884
+    container_name: immich-redis
+    restart: unless-stopped
+    healthcheck:
+      test: redis-cli ping || exit 1
+    networks:
+      - immich-internal
+
+  immich-database:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0
+    container_name: immich-database
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - immich_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - immich-internal
+
+volumes:
+  model-cache:
+  immich_data:
+
+networks:
+  traefik_traefik:
+    external: true
+  immich-internal:
+    internal: true
