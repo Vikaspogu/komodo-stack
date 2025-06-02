@@ -1,0 +1,25 @@
+services:
+  habittrove:
+    ports:
+      - "3001:3001"
+    networks:
+      - traefik_traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.habittrove.tls=true"
+      - "traefik.http.routers.habittrove.rule=Host(`habittrove.synlo.duckdns.org`)"
+      - "traefik.http.routers.habittrove.entrypoints=websecure"
+      - "homepage.group=traefik"
+      - "homepage.name=habittrove"
+      - "homepage.href=https://habittrove.synlo.duckdns.org"
+      - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/habittrove.png"
+    volumes:
+      - "habittrove:/app/data"
+    image: dohsimpson/habittrove:v0.2.22
+
+volumes:
+  habittrove_data:
+
+networks:
+  traefik_traefik:
+    external: true
