@@ -201,7 +201,7 @@ run_directory = "habittrove"
 send_alerts = true
 auto_update = true
 pre_deploy.command = """
-export SOPS_AGE_KEY_FILE=/home/vikaspogu/.sops/key.txt && /usr/local/bin/sops -d ./secrets.sops.env > .env
+export SOPS_AGE_KEY_FILE=/home/vikaspogu/.sops/key.txt && /usr/local/bin/sops -d ./secrets.sops.env > secrets.env
 """
 
 ##
@@ -218,7 +218,7 @@ run_directory = "immich"
 send_alerts = true
 auto_update = true
 pre_deploy.command = """
-export SOPS_AGE_KEY_FILE=/home/vikaspogu/.sops/key.txt && /usr/local/bin/sops -d ./secrets.sops.env > .env
+export SOPS_AGE_KEY_FILE=/home/vikaspogu/.sops/key.txt && /usr/local/bin/sops -d ./secrets.sops.env > secrets.env
 """
 
 ##

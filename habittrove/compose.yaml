@@ -15,7 +15,7 @@ services:
       - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/habittrove.png"
     volumes:
       - "habittrove_data:/app/data"
-    env_file: .env
+    env_file: secrets.env
     environment:
       - TZ=America/New_York
     restart: unless-stopped

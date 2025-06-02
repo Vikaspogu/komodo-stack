@@ -7,7 +7,7 @@ services:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     env_file:
-      - .env
+      - secrets.env
     environment:
       - NODE_ENV=production
       - TZ=America/New_York
@@ -41,7 +41,7 @@ services:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - model-cache:/cache
     env_file:
-      - .env
+      - secrets.env
     environment:
       - NODE_ENV=production
     restart: unless-stopped
@@ -62,7 +62,7 @@ services:
     image: ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0
     container_name: immich-database
     env_file:
-      - .env
+      - secrets.env
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
