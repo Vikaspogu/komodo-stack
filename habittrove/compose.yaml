@@ -14,7 +14,7 @@ services:
       - "homepage.href=https://habittrove.synlo.duckdns.org"
       - "homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/habittrove.png"
     volumes:
-      - "habittrove:/app/data"
+      - "habittrove_data:/app/data"
     image: dohsimpson/habittrove:v0.2.22
 
 volumes:
