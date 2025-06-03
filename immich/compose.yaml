@@ -6,7 +6,7 @@ services:
     volumes:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
-      - /srv/dev-disk-by-uuid-9d2e4cb9-8825-4168-8153-e020ee524474/storage0/photo:/photos:ro
+      - /srv/dev-disk-by-uuid-9d2e4cb9-8825-4168-8153-e020ee524474/storage0/pogu-nas/photo:/photos:ro
     env_file:
       - .env
     environment:
