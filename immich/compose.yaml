@@ -28,6 +28,7 @@ services:
       - "traefik.http.routers.immich.rule=Host(`immich.synlo.duckdns.org`)"
       - "traefik.http.routers.immich.entrypoints=websecure"
       - "traefik.http.services.immich.loadbalancer.server.port=2283"
+      - "traefik.docker.network=traefik_traefik"
       - "homepage.group=traefik"
       - "homepage.name=immich"
       - "homepage.href=https://immich.synlo.duckdns.org"
