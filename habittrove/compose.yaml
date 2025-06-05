@@ -19,7 +19,7 @@ services:
     environment:
       - TZ=America/New_York
     restart: unless-stopped
-    image: dohsimpson/habittrove:v0.2.22
+    image: dohsimpson/habittrove:v0.2.23
 
 volumes:
   habittrove_data:
