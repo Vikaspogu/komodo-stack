@@ -20,6 +20,7 @@ services:
       - PGID=1000
     volumes:
       - /srv/dev-disk-by-uuid-9d2e4cb9-8825-4168-8153-e020ee524474/storage0/syncthing:/var/syncthing
+      - /srv/dev-disk-by-uuid-9d2e4cb9-8825-4168-8153-e020ee524474/storage0/pogu-nas/immich-upload:/immich-upload
     ports:
       - 8384:8384 # Web UI
       - 22000:22000/tcp # TCP file transfers

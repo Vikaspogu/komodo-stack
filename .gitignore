@@ -3,3 +3,4 @@
 Thumbs.db
 .decrypted~*.yaml
 .decrypted~*.env
+.decrypted~*.toml
