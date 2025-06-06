@@ -14,8 +14,6 @@ services:
       - TZ=America/New_York
     ports:
       - 2283:2283
-    expose:
-      - 2283
     depends_on:
       - immich-redis
       - immich-database
