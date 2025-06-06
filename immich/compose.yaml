@@ -17,9 +17,9 @@ services:
     depends_on:
       - immich-redis
       - immich-database
-    restart: unless-stopped
-    networks:
-      - immich-internal
+    restart: always
+    healthcheck:
+      disable: false
 
   immich-machine-learning:
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
@@ -29,21 +29,19 @@ services:
       - model-cache:/cache
     env_file:
       - .env
-    restart: unless-stopped
-    networks:
-      - immich-internal
+    restart: always
+    healthcheck:
+      disable: false
 
   immich-redis:
     image: docker.io/valkey/valkey:8-bookworm@sha256:a19bebed6a91bd5e6e2106fef015f9602a3392deeb7c9ed47548378dcee3dfc2
     container_name: immich-redis
-    restart: unless-stopped
     healthcheck:
       test: redis-cli ping || exit 1
-    networks:
-      - immich-internal
+    restart: always
 
   immich-database:
-    image: ghcr.io/immich-app/postgres:16-vectorchord0.3.0-pgvectors0.2.0
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0@sha256:fa4f6e0971f454cd95fec5a9aaed2ed93d8f46725cc6bc61e0698e97dba96da1
     container_name: immich-database
     env_file:
       - .env
@@ -55,14 +53,8 @@ services:
       PG_DATA: /var/lib/postgresql/data
     volumes:
       - immich_data:/var/lib/postgresql/data
-    restart: unless-stopped
-    networks:
-      - immich-internal
+    restart: always
 
 volumes:
   model-cache:
   immich_data:
-
-networks:
-  immich-internal:
-    internal: true
