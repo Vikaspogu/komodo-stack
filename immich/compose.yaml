@@ -10,7 +10,6 @@ services:
     env_file:
       - .env
     environment:
-      - NODE_ENV=production
       - TZ=America/New_York
     ports:
       - 2283:2283
@@ -29,8 +28,6 @@ services:
       - model-cache:/cache
     env_file:
       - .env
-    environment:
-      - NODE_ENV=production
     restart: unless-stopped
     networks:
       - immich-internal
