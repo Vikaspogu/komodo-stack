@@ -10,6 +10,7 @@ services:
     env_file:
       - .env
     environment:
+      - NODE_ENV=development
       - TZ=America/New_York
     ports:
       - 2283:2283
