@@ -1,6 +1,6 @@
 services:
   filebrowser:
-    image: ghcr.io/gtsteffaniak/filebrowser:0.7.6-beta
+    image: ghcr.io/gtsteffaniak/filebrowser:0.7.7-beta
     container_name: filebrowser
     labels:
       - "traefik.enable=true"
