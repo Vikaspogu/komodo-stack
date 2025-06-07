@@ -1,6 +1,6 @@
 services:
   bytestash:
-    image: "ghcr.io/jordan-dalby/bytestash:1.5.7"
+    image: "ghcr.io/jordan-dalby/bytestash:1.5.8"
     restart: always
     labels:
       - "traefik.enable=true"
